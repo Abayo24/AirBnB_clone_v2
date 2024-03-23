@@ -58,3 +58,12 @@ class FileStorage:
         if obj != None:
             key = f"{obj.__class__.__name__}.{obj.id}"
             del self.__objects[key]
+
+    @property
+    def cities(self):
+        """Getter attribute that returns list of City instances"""
+        from models.city import City
+        cities_list = []
+        for obj in self.all(City).values():
+            cities_list.append(obj)
+        return cities_list

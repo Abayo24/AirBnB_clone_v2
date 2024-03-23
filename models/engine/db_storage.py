@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""Defines the DBStorage engine."""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session, relationship
 from models.base_model import Base
@@ -5,9 +7,9 @@ from models.city import City
 from models.state import State
 from os import getenv
 
+
 class DBStorage:
     """This class manages storage of hbnb models in a MySQL database"""
-
     __engine = None
     __session = None
 
@@ -52,5 +54,3 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(Session)
-
-

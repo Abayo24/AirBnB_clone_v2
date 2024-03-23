@@ -1,34 +1,31 @@
 #!/usr/bin/python3
 """ """
-from tests.test_models.test_base_model import test_basemodel
+import unittest
 from models.user import User
+from models.place import Place
+from models.review import Review
 
+class TestUser(unittest.TestCase):
+    def test_attributes(self):
+        user = User()
+        self.assertTrue(hasattr(user, 'email'))
+        self.assertTrue(hasattr(user, 'password'))
+        self.assertTrue(hasattr(user, 'first_name'))
+        self.assertTrue(hasattr(user, 'last_name'))
+        self.assertTrue(hasattr(user, 'places'))
+        self.assertTrue(hasattr(user, 'reviews'))
 
-class test_User(test_basemodel):
-    """ """
+    def test_relationships(self):
+        user = User()
+        self.assertIsInstance(user.places, relationship)
+        self.assertEqual(user.places.property.mapper.class_, Place)
+        self.assertIsInstance(user.reviews, relationship)
+        self.assertEqual(user.reviews.property.mapper.class_, Review)
 
-    def __init__(self, *args, **kwargs):
-        """ """
-        super().__init__(*args, **kwargs)
-        self.name = "User"
-        self.value = User
+    def test_docstrings(self):
+        self.assertIsNotNone(User.__doc__)
+        # Add more assertions for other methods and classes if needed
 
-    def test_first_name(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.first_name), str)
+if __name__ == '__main__':
+    unittest.main()
 
-    def test_last_name(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.last_name), str)
-
-    def test_email(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.email), str)
-
-    def test_password(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.password), str)

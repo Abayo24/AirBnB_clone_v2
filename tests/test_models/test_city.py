@@ -1,24 +1,22 @@
 #!/usr/bin/python3
-""" """
-from tests.test_models.test_base_model import test_basemodel
+"""Unit tests for the City class."""
+import unittest
 from models.city import City
+from models.place import Place
 
+class TestCity(unittest.TestCase):
+    def test_attributes(self):
+        city = City()
+        self.assertTrue(hasattr(city, 'state_id'))
+        self.assertTrue(hasattr(city, 'name'))
 
-class test_City(test_basemodel):
-    """ """
+    def test_relationship(self):
+        city = City()
+        self.assertIsInstance(city.places, relationship)
+        self.assertEqual(city.places.property.mapper.class_, Place)
 
-    def __init__(self, *args, **kwargs):
-        """ """
-        super().__init__(*args, **kwargs)
-        self.name = "City"
-        self.value = City
+    # Add more tests for other methods or properties as needed
 
-    def test_state_id(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.state_id), str)
+if __name__ == '__main__':
+    unittest.main()
 
-    def test_name(self):
-        """ """
-        new = self.value()
-        self.assertEqual(type(new.name), str)

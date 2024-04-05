@@ -13,46 +13,20 @@ def do_deploy(archive_path):
     """
     Distributes an archive to your web servers
     """
-    if not os.path.exists(archive_path):
+    if exists(archive_path) is False:
         return False
-
     try:
-        # Upload the archive to the /tmp/ directory of the web server
-        put(archive_path, '/tmp')
-
-        # Extract archive filename without extension
-        archive_filename = os.path.basename(archive_path)
-        archive_name = os.path.splitext(archive_filename)[0]
-
-        # Create directory to uncompress archive
-        run('mkdir -p /data/web_static/releases/{}'.format(archive_name))
-
-        # Uncompress the archive to the folder /data/web_static/releases/
-        run('tar -xzf /tmp/{} -C /data/web_static/releases/{}/'.format(
-            archive_filename, archive_name))
-
-        # Remove archive from web server
-        run('rm /tmp/{}'.format(archive_filename))
-
-        # Move contents of archive to the correct location
-        run('mv /data/web_static/releases/{}/web_static/* \
-            /data/web_static/releases/{}/'.format(archive_name, archive_name))
-
-        # Remove empty web_static directory
-        run('rm -rf /data/web_static/releases/{}/web_static'.format(
-            archive_name))
-
-        # Remove the symbolic link /data/web_static/current
+        file_n = archive_path.split("/")[-1]
+        no_ext = file_n.split(".")[0]
+        path = "/data/web_static/releases/"
+        put(archive_path, '/tmp/')
+        run('mkdir -p {}{}/'.format(path, no_ext))
+        run('tar -xzf /tmp/{} -C {}{}/'.format(file_n, path, no_ext))
+        run('rm /tmp/{}'.format(file_n))
+        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, no_ext))
+        run('rm -rf {}{}/web_static'.format(path, no_ext))
         run('rm -rf /data/web_static/current')
-
-        # Create a new symbolic link
-        run('ln -s /data/web_static/releases/{}/ \
-            /data/web_static/current'.format(archive_name))
-
-        print("New version deployed!")
+        run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
         return True
-
-    except Exception as e:
-        print(e)
+    except:
         return False
-

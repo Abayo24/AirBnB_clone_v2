@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-Fabric script that creates and distributes an archive to your web servers
+Fabric script which creates and distributes an archive to your web servers using the function do_deploy.
 """
 
 from fabric.api import *
 from os import path
 from datetime import datetime
 
-env.hosts = ['<IP web-01>', 'IP web-02']
+env.hosts = ['54.86.79.118', '54.237.97.11']
 
 
 def do_pack():

@@ -4,7 +4,7 @@
 This is a script that starts a Flask web application
 """
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -49,12 +49,6 @@ def number(n):
     return "{} is a number".format(n)
 
 
-@app.errorhandler(404)
-def page_not_found(error):
-    """Error handler"""
-    return "Not Found", 404
-
-
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template(n):
     """
@@ -63,7 +57,7 @@ def number_template(n):
     if isinstance(n, int):
         return render_template('5-number.html', n=n)
     else:
-        return page_not_found(error)
+        return "Not Found", 404
 
 
 if __name__ == "__main__":

@@ -45,7 +45,9 @@ def python_text(text="is cool"):
 
 @app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
-    """returns number if its an integer"""
+    """
+    returns number if its an integer
+    """
     return "{} is a number".format(n)
 
 
@@ -62,6 +64,9 @@ def number_template(n):
 
 @app.route('/number_odd_or_even/<int:n>', strict_slashes=False)
 def number_odd_or_even(n):
+    """
+    display a HTML page only if n is an integer
+    """
     if isinstance(n, int):
         return render_template('number_odd_or_even.html', n=n, even_odd="even"
                 if n % 2 == 0 else "odd")

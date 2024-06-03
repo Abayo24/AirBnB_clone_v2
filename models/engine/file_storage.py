@@ -59,6 +59,12 @@ class FileStorage:
             key = f"{obj.__class__.__name__}.{obj.id}"
             del self.__objects[key]
 
+
+    def close(self):
+        """Call reload() method for deserializing the JSON file to objects"""
+        self.reload()
+
+
     @property
     def cities(self):
         """Getter attribute that returns list of City instances"""
